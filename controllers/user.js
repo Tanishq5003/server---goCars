@@ -7,9 +7,25 @@ async function handelUserSignup(req, res){
         email,
         password
     });
-    return res.json({response : "Success"})
+    return res.status(200).json({response : "Success"});
+};
+
+async function handelUserLogin(req,res){
+    const {email, password} = req.body;
+    const user = await User.findOne({ email, password})
+    if(!user){
+        res.status(401).json({
+            response : "Invalid Credentials"
+        });
+    }
+    else{
+        res.status(200).json({
+            response : "Success",
+        });
+    }
 }
 
 module.exports = {
     handelUserSignup,
+    handelUserLogin
 }
