@@ -1,0 +1,10 @@
+done {
+    login,
+    signup,
+    password verification, user duplicacy check,
+    forgot password
+}
+
+pending{
+    otp verification,
+}

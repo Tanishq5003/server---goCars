@@ -1,9 +1,15 @@
 const experss = require("express");
-const {handelUserSignup, handelUserLogin} = require("../controllers/user");
+const {handelUserSignup, handelUserLoginEmail, handleUserLoginMobile,
+        handleForgotPasswordEmail, handleForgotPasswordMobile
+        } = require("../controllers/user");
+const {passwordValidation, uniqueUser, userExistsMail, userExistsMobile} = require("../middlewares/SignupValidation")
 
 const router = experss.Router();
 
-router.post("/", handelUserSignup);
-router.post("/login", handelUserLogin);
+router.post("/",passwordValidation, uniqueUser, handelUserSignup);
+router.post("/login/email", handelUserLoginEmail);
+router.post("/login/mobile", handleUserLoginMobile);
+router.patch("/forgotPassword/mail", userExistsMail, handleForgotPasswordEmail)
+router.patch("/forgotPassword/mobile", userExistsMobile, handleForgotPasswordMobile)
 
 module.exports = router;
