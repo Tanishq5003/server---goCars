@@ -2,9 +2,12 @@ done {
     login,
     signup,
     password verification, user duplicacy check,
+    jwt token auth (Stateless auth),
     forgot password
 }
 
 pending{
     otp verification,
+    testing on mobile,
+    work on schema  - uSerCars, Cars, Photos
 }

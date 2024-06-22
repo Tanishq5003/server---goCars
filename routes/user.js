@@ -10,6 +10,6 @@ router.post("/",passwordValidation, uniqueUser, handelUserSignup);
 router.post("/login/email", handelUserLoginEmail);
 router.post("/login/mobile", handleUserLoginMobile);
 router.patch("/forgotPassword/mail", userExistsMail, handleForgotPasswordEmail)
-router.patch("/forgotPassword/mobile", userExistsMobile, handleForgotPasswordMobile)
+router.patch("/forgotPassword/mobile", userExistsMobile, handleForgotPasswordMobile) 
 
 module.exports = router;

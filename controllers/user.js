@@ -1,5 +1,6 @@
 const { response } = require("express");
 const User = require("../models/user");
+const {setUser, getUser} = require("../services/auth")
 
 async function handelUserSignup(req, res){
     const {name, email, password, mobile} = req.body;
@@ -17,13 +18,15 @@ async function handelUserLoginEmail(req,res){
     const {email, password} = req.body;
     const user = await User.findOne({ email, password})
     if(!user){
-        res.status(401).json({
+        res.status(404).json({
             response : "Invalid Credentials"
         });
     }
     else{
+        const token = setUser(user);
         res.status(200).json({
             response : "Success",
+            token,
         });
     }
 }
