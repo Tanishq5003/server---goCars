@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true
+    },
+    revennue:{
+        
     }
     },
     {timestamps: true}
