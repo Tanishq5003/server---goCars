@@ -4,7 +4,8 @@ const revenue = require("./revenue");
 
 const userCarsSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'user'
+        type: mongoose.Schema.Types.ObjectId, ref: 'user',
+        required: true
     },
     car: {
         type: mongoose.Schema.Types.ObjectId, ref: 'cars'
