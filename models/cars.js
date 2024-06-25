@@ -11,11 +11,10 @@ const carSchema = new mongoose.Schema({
         required: true
     },
     fuel: [
-        {type : String, required: true}, 
+        {type : String},
     ],
     milage:[ {
          type: Number,
-        required: true
     }],
     vehicleNumber:{
         type: String,
@@ -29,35 +28,37 @@ const carSchema = new mongoose.Schema({
         type:Boolean,
         required: true
     },
-    rcStaus :{
+    rcStatus :{
         type:Boolean,
         required: true
     },
     bookingHistory: [
         {timestamp:{
-            type:Date,
-            default:Date.now
+            type:Date
         }}
     ],
     numberOfTrips: {
         type: Number,
+        default: 0
     },
     price:{
         type:Number,
         required: true
     },
     ownerId:{
-        type: mongoose.Schema.Types.ObjectId, ref: 'user',
-        required: true
+        type: mongoose.Schema.Types.ObjectId, ref: 'user'
     },
     vehicleVerification: {
-        type:Boolean
+        type:Boolean,
+        default: false
     },
     vehicleStatus:{
-        type:Boolean
+        type:Boolean,
+        default: false
     },
     isBooked:{
-        type:Boolean
+        type:Boolean,
+        default: false
     }
 
 },

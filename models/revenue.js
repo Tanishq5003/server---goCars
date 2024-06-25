@@ -9,7 +9,12 @@ const revenueHistorySchema = mongoose.Schema({
     revenue: {
         type: Number,
         required: true
-    }
+    },
+    vehicleNumber: {
+        type: String,
+        required: true
+    },
+    
 },
 {timestamps: true});
 
