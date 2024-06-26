@@ -7,12 +7,12 @@ const userCarsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'user',
         required: true
     },
-    car: {
+    car: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'cars'
-    },
-    revenue:{
+    }],
+    revenue:[{
         type: mongoose.Schema.Types.ObjectId, ref: 'revenue'
-    },
+    }],
     Ballance :{
         type:Number,
         default : 0
