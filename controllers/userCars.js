@@ -64,7 +64,7 @@ async function handleGetAllCars(req,res){
     try{
         const user = req.user;
         const ownerId = user._id;
-        const userCars = await UserCars.find({user: ownerId}).populate('car').populate('user', 'name');
+        const userCars = await UserCars.find({user: ownerId}).populate('car').populate('user', 'name email mobile');
         if(!userCars){
             return res.status(200).json({response : "No Cars registered by this user"});
         }else{
@@ -76,8 +76,32 @@ async function handleGetAllCars(req,res){
     }
 }
 
+async function handleDeleteCar(req,res){
+    try{
+        const user = req.user;
+        const ownerId = user._id;
+        const {carId} = req.body;
+        const objectId = new mongoose.Types.ObjectId(carId);
+        const deleteCar = await Cars.findByIdAndDelete(objectId);
+        if(!deleteCar){
+            res.status(404).json({response :"Can't find the requested car"});
+        }
+        else{
+            try{
+            await UserCars.findOneAndUpdate({user: ownerId}, {$pull: {car: carId}}, {new: true});
+            return res.status(200).json({response: "Car deleted successfully"});
+            }catch(error){
+                console.error(error);
+            }
+        }
+}catch(error){
+        console.error(error);
+        }
+}
+
 module.exports = {
     handleAddCar,
     handleActivateCar,
-    handleGetAllCars
+    handleGetAllCars,
+    handleDeleteCar
 }
