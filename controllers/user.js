@@ -1,6 +1,6 @@
 const { response } = require("express");
 const User = require("../models/user");
-const {setUser, getUser} = require("../services/auth")
+const {setUser} = require("../services/auth")
 
 async function handelUserSignup(req, res){
     const {name, email, password, mobile} = req.body;
@@ -10,6 +10,18 @@ async function handelUserSignup(req, res){
         email,
         password,
         mobile
+    });
+    return res.status(200).json({response : "Success"});
+};
+
+async function handelAdminSignup(req, res){
+    const {name, email, password, mobile} = req.body;
+    await User.create({
+        name,
+        email,
+        password,
+        mobile,
+        userType: "ADMIN"
     });
     return res.status(200).json({response : "Success"});
 };
@@ -40,9 +52,11 @@ async function handleUserLoginMobile(req, res){
     });
     }
     else{
-    res.status(200).json({
-        response: "Success"
-    });
+        const token = setUser(user);
+        res.status(200).json({
+            response: "Success",
+            token,
+        });
     }
 }
 
@@ -63,5 +77,6 @@ module.exports = {
     handelUserLoginEmail,
     handleUserLoginMobile,
     handleForgotPasswordEmail,
-    handleForgotPasswordMobile
+    handleForgotPasswordMobile,
+    handelAdminSignup
 }

@@ -24,6 +24,25 @@ catch(error){
 }
 }
 
+async function restrictToAdminOnly(req,res,next){
+    try{
+        const userUid = req.headers["authorization"];
+        if (!userUid) {
+            return res.status(400);
+        }
+        const token = userUid.split("Bearer ")[1];
+        const user = await getUser(token);
+        if(!user) return res.status(401).json({response: "Unauthorized"});
+        if(user.userType !== "ADMIN") return res.status(401).json({response: "Unauthorized"});
+        req.user = user;
+        next();
+    }catch(error){
+        console.error(error);
+        return res.status(500);
+    }
+}
+
 module.exports = {
-    restrictToLoggedInUserOnly
+    restrictToLoggedInUserOnly,
+    restrictToAdminOnly
 }

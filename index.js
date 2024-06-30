@@ -13,9 +13,11 @@ app.use(express.json());
 // Routes
 const UserRoutes = require("./routes/user");
 const UserCarsRoutes = require("./routes/userCars");
+const AdminRoutes = require("./routes/admin");
 
 // Register Routes
 app.use("/users", UserRoutes);
 app.use("/userCars", UserCarsRoutes);
+app.use("/admin", AdminRoutes);
 
 app.listen(port, () => console.log(`Server Started at port : ${port}`));
